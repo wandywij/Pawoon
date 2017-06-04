@@ -18,7 +18,7 @@ public class BaseNetworkManager {
     private static Retrofit retrofit;
     //private static Retrofit retrofitToken;
 
-    public static Retrofit getRetrofit() {
+    public Retrofit getRetrofit() {
         if (null == retrofit) {
             retrofit = initiateRetrofit(getHttpClient());
         }
