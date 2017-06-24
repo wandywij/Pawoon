@@ -16,6 +16,8 @@ import com.wnd.pawoon.network.api.ApiService;
 import com.wnd.pawoon.presenter.ToDoListPresenter;
 import com.wnd.pawoon.view.MainView;
 
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,8 +25,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends BaseActivity {
 
     @Inject
     ToDoListPresenter presenter;
@@ -35,11 +40,12 @@ public class MainActivity extends AppCompatActivity implements MainView{
     public Button toDoListButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    void onCreate() {
         setContentView(R.layout.activity_main);
-
     }
+
+    Disposable disposable;
+
 
     @Override
     protected void onStart() {
@@ -50,25 +56,30 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 .toDoListModule(new ToDoListModule(this))
                 .build();
         component.inject(this);
-        presenter.onAttachView(this);
-        presenter.getToDos();
-
+        disposable = presenter.onResume(new Consumer<List<ToDoModel>>() {
+            @Override
+            public void accept(@NonNull List<ToDoModel> toDoModels) throws Exception {
+                for(ToDoModel model : toDoModels) {
+                    Log.d("oke", model.title);
+                }
+            }
+        });
         ButterKnife.bind(this);
     }
 
-    @Override
+
     public void onFetched(List<ToDoModel> toDoModels) {
+
     }
 
     @OnClick(R.id.toDoListButton)
     public void navigate() {
-        Intent i = new Intent(this, ToDoListActivity.class);
-        startActivity(i);
+        navigateTo(ToDoListActivity.class);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDetachview(this);
+        disposable.dispose();
     }
 }

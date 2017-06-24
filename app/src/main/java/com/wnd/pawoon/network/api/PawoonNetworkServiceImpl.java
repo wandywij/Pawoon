@@ -17,6 +17,7 @@ public class PawoonNetworkServiceImpl implements PawoonNetworkService {
     public PawoonNetworkServiceImpl(ApiService apiService) {
         this.apiService = apiService;
     }
+
     @Override
     public Observable<List<ToDoModel>> getToDoList() {
         return apiService.getToDos();

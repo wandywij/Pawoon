@@ -8,51 +8,56 @@ import com.wnd.pawoon.network.BaseNetworkManager;
 import com.wnd.pawoon.network.api.ApiService;
 import com.wnd.pawoon.view.MainView;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.BehaviorSubject;
 
 
 /**
  * Created by Wandy on 5/25/17.
  */
 
-public class ToDoListPresenter implements BasePresenter<MainView> {
+public class ToDoListPresenter {
 
-    private MainView mainView;
-    private Disposable subscription;
     private ToDoListInteractor interactor;
+    private BehaviorSubject<List<ToDoModel>> behaviorSubject = BehaviorSubject.create();;
 
     public ToDoListPresenter(ToDoListInteractor interactor) {
         this.interactor = interactor;
     }
 
-    @Override
-    public void onAttachView(MainView mainView) {
-        this.mainView = mainView;
-    }
-
-    @Override
-    public void onDetachview(MainView mainView) {
-        subscription.dispose();
-        this.mainView = null;
-    }
-
-    public void getToDos() {
-        subscription = interactor.getToDoList().observeOn(AndroidSchedulers.mainThread())
+    private void getToDos() {
+        interactor.getToDoList()
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<List<ToDoModel>>() {
                     @Override
                     public void accept(@NonNull List<ToDoModel> toDoModels) throws Exception {
-                        for (ToDoModel model: toDoModels) {
-                            Log.d("result", "todo " + model.title);
-                        }
+                        behaviorSubject.onNext(toDoModels);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        
                     }
                 });
+    }
+
+    public Disposable onResume(Consumer<List<ToDoModel>> getToDosAction) {
+        getToDos();
+        return behaviorSubject
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getToDosAction);
     }
 }
