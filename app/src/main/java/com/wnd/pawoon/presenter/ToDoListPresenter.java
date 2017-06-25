@@ -49,7 +49,7 @@ public class ToDoListPresenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
-                        
+
                     }
                 });
     }

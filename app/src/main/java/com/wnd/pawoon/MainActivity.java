@@ -46,7 +46,6 @@ public class MainActivity extends BaseActivity {
 
     Disposable disposable;
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -73,7 +72,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @OnClick(R.id.toDoListButton)
-    public void navigate() {
+    public void navigateToToDoListActivity() {
         navigateTo(ToDoListActivity.class);
     }
 
