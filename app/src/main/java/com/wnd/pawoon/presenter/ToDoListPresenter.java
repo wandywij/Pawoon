@@ -38,7 +38,7 @@ public class ToDoListPresenter {
         this.interactor = interactor;
     }
 
-    private void getToDos() {
+    public void getToDos() {
         interactor.getToDoList()
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<List<ToDoModel>>() {
@@ -52,6 +52,10 @@ public class ToDoListPresenter {
 
                     }
                 });
+    }
+
+    public int addNumber(int a, int b) {
+        return a+b;
     }
 
     public Disposable onResume(Consumer<List<ToDoModel>> getToDosAction) {

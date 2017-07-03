@@ -13,12 +13,15 @@ import io.reactivex.Observable;
 
 public class ToDoListInteractor {
 
-    PawoonNetworkService networkService;
+    public PawoonNetworkService getNetworkService() {
+        return networkService;
+    }
+
+    private PawoonNetworkService networkService;
 
     public ToDoListInteractor(PawoonNetworkService networkService) {
         this.networkService = networkService;
     }
-
 
     public Observable<List<ToDoModel>> getToDoList() {
         return networkService.getToDoList();

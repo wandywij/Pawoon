@@ -1,22 +1,13 @@
 package com.wnd.pawoon;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 
 import com.wnd.pawoon.di.DaggerToDoListComponent;
 import com.wnd.pawoon.di.ToDoListComponent;
 import com.wnd.pawoon.di.ToDoListModule;
-import com.wnd.pawoon.domain.ToDoListInteractor;
 import com.wnd.pawoon.model.ToDoModel;
-import com.wnd.pawoon.network.BaseNetworkManager;
-import com.wnd.pawoon.network.api.ApiService;
 import com.wnd.pawoon.presenter.ToDoListPresenter;
-import com.wnd.pawoon.view.MainView;
-
-import org.reactivestreams.Subscription;
 
 import java.util.List;
 
@@ -35,6 +26,7 @@ public class MainActivity extends BaseActivity {
     ToDoListPresenter presenter;
 
     private ToDoListComponent component;
+    Disposable disposable;
 
     @BindView(R.id.toDoListButton)
     public Button toDoListButton;
@@ -43,8 +35,6 @@ public class MainActivity extends BaseActivity {
     void onCreate() {
         setContentView(R.layout.activity_main);
     }
-
-    Disposable disposable;
 
     @Override
     protected void onStart() {
