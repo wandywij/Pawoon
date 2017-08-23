@@ -2,6 +2,8 @@ package com.wnd.pawoon.di;
 
 import android.content.Context;
 
+import com.wnd.pawoon.PawoonApplication;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -16,6 +18,7 @@ public final class ApplicationModule {
     public ApplicationModule(Context context) {
         this.context = context;
     }
+
 
     @Provides
     @Named("application")

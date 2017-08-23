@@ -11,7 +11,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules={ApplicationModule.class, NetworkingModule.class})
+@Component(modules = {ApplicationModule.class, NetworkingModule.class})
 public interface ApplicationComponent {
     PawoonNetworkService pawoonNetworkService();
 }

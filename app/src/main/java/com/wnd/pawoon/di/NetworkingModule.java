@@ -9,6 +9,7 @@ import com.wnd.pawoon.network.api.PawoonNetworkServiceImpl;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -30,6 +31,7 @@ public class NetworkingModule {
     }
 
     @Provides
+    //@Named("gile")
     @Singleton
     public OkHttpClient provideOkHttpClient() {
         return new OkHttpClient.Builder()

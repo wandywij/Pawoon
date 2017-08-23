@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
     @Inject
     ToDoListPresenter presenter;
 
-    private ToDoListComponent component;
+    private ToDoListComponent toDoListComponent;
     Disposable disposable;
 
     @BindView(R.id.toDoListButton)
@@ -40,11 +40,11 @@ public class MainActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
-        component = DaggerToDoListComponent.builder()
+        toDoListComponent = DaggerToDoListComponent.builder()
                 .applicationComponent(((PawoonApplication) getApplication()).getAppComponent())
                 .toDoListModule(new ToDoListModule(this))
                 .build();
-        component.inject(this);
+        toDoListComponent.inject(this);
         disposable = presenter.onResume(new Consumer<List<ToDoModel>>() {
             @Override
             public void accept(@NonNull List<ToDoModel> toDoModels) throws Exception {

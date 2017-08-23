@@ -1,6 +1,9 @@
 package com.wnd.pawoon;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.wnd.pawoon.di.ApplicationComponent;
 import com.wnd.pawoon.di.ApplicationModule;
@@ -11,7 +14,7 @@ import com.wnd.pawoon.di.NetworkingModule;
  * Created by Wandy on 6/5/17.
  */
 
-public class PawoonApplication extends Application {
+public class PawoonApplication extends MultiDexApplication {
 
     ApplicationComponent mAppComponent;
 
@@ -26,5 +29,11 @@ public class PawoonApplication extends Application {
 
     public ApplicationComponent getAppComponent() {
         return mAppComponent;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

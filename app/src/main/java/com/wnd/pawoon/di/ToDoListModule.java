@@ -4,12 +4,10 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import com.wnd.pawoon.domain.ToDoListInteractor;
-import com.wnd.pawoon.network.api.ApiService;
 import com.wnd.pawoon.network.api.PawoonNetworkService;
 import com.wnd.pawoon.presenter.ToDoListPresenter;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -44,6 +42,4 @@ public class ToDoListModule {
     public ToDoListPresenter provideToDoListPresenter(ToDoListInteractor interactor) {
         return new ToDoListPresenter(interactor);
     }
-
-
 }
