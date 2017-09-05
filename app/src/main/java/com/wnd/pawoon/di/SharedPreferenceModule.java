@@ -27,12 +27,4 @@ public class SharedPreferenceModule {
     public SharedPreferences provideSharedPreferences() {
         return context.getSharedPreferences(PREFS_NAME, 0);
     }
-
-//    @Provides
-//    @Singleton
-//    public Context provideContext() {
-//        return this.context;
-//    }
-
-
 }

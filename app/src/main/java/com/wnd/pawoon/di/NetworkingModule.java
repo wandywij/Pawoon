@@ -30,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkingModule {
 
-    @Inject
     SharedPreferences sharedPreferences;
 
 
@@ -54,7 +53,7 @@ public class NetworkingModule {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         sharedPreferences.edit().putString("hellow", "lorem ipsum dolor").commit();
 
-        Log.d(NetworkingModule.class.getSimpleName(), sharedPreferences.getString("hellow", "empty string"));
+        Log.d(NetworkingModule.class.getSimpleName(), sharedPreferences.getString("hi", "empty string"));
 
         return new OkHttpClient.Builder()
                 .readTimeout(30, TimeUnit.SECONDS)
