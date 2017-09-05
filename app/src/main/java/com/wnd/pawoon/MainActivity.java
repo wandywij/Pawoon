@@ -1,8 +1,10 @@
 package com.wnd.pawoon;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Button;
 
+import com.wnd.pawoon.di.ApplicationComponent;
 import com.wnd.pawoon.di.DaggerToDoListComponent;
 import com.wnd.pawoon.di.ToDoListComponent;
 import com.wnd.pawoon.di.ToDoListModule;
@@ -24,6 +26,9 @@ public class MainActivity extends BaseActivity {
 
     @Inject
     ToDoListPresenter presenter;
+
+    @Inject
+    SharedPreferences sharedPreferences;
 
     private ToDoListComponent toDoListComponent;
     Disposable disposable;
@@ -52,6 +57,16 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("hi", "gendenggg 1").commit();
+        editor.commit();
+
+        Log.d(MainActivity.class.getSimpleName(), sharedPreferences.getString("hi", "kosong"));
+        //sharedPreferences = context.getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        //sharedPreferences.edit().putString("yellow", "another lorem ipsum").commit();
+        //Log.d(PawoonNetworkServiceImpl.class.getSimpleName()
+                //, sharedPreferences.getString("yellow", "kosong"));
         ButterKnife.bind(this);
     }
 

@@ -2,6 +2,7 @@ package com.wnd.pawoon.di;
 
 import android.content.SharedPreferences;
 
+import com.wnd.pawoon.MainActivity;
 import com.wnd.pawoon.network.api.PawoonNetworkService;
 
 import javax.inject.Singleton;
