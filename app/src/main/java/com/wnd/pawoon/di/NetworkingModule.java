@@ -1,5 +1,9 @@
 package com.wnd.pawoon.di;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wnd.pawoon.Constant;
 import com.wnd.pawoon.network.BaseNetworkManager;
@@ -9,6 +13,7 @@ import com.wnd.pawoon.network.api.PawoonNetworkServiceImpl;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -25,20 +30,39 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkingModule {
 
+    @Inject
+    SharedPreferences sharedPreferences;
+
+
+    private final String PREFS_NAME = "MyPrefsFile";
+
+    private Context context;
+    public NetworkingModule(Context context) {
+        this.context = context;
+    }
+
     @Provides @Singleton
     public PawoonNetworkService getNetworkService(ApiService apiService) {
         return new PawoonNetworkServiceImpl(apiService);
     }
 
     @Provides
-    //@Named("gile")
     @Singleton
     public OkHttpClient provideOkHttpClient() {
+
+        sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        sharedPreferences.edit().putString("hellow", "lorem ipsum dolor").commit();
+
+        Log.d(NetworkingModule.class.getSimpleName(), sharedPreferences.getString("hellow", "empty string"));
+
         return new OkHttpClient.Builder()
                 .readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
     }
+
+
 
     @Provides
     @Singleton
@@ -56,6 +80,7 @@ public class NetworkingModule {
     public ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
     }
+
 
 
 }

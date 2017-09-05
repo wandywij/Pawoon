@@ -37,7 +37,7 @@ repositories {
     mavenCentral()
     mavenLocal()
     jcenter()
-    maven {url "https://clojars.org/repo/"}
+    maven { url "https://clojars.org/repo/" }
 }
 
 dependencies {

@@ -1,5 +1,7 @@
 package com.wnd.pawoon.di;
 
+import android.content.SharedPreferences;
+
 import com.wnd.pawoon.network.api.PawoonNetworkService;
 
 import javax.inject.Singleton;
@@ -11,7 +13,9 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, NetworkingModule.class})
+@Component(modules = {ApplicationModule.class, NetworkingModule.class, SharedPreferenceModule.class})
 public interface ApplicationComponent {
     PawoonNetworkService pawoonNetworkService();
+    SharedPreferences sharedPreferences();
+    //void inject();
 }

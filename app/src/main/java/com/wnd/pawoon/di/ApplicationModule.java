@@ -1,6 +1,7 @@
 package com.wnd.pawoon.di;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.wnd.pawoon.PawoonApplication;
 
@@ -26,4 +27,10 @@ public final class ApplicationModule {
     Context provideApplicationContext() {
         return context;
     }
+
+    /*@Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences() {
+        return context.getSharedPreferences("hehe", 0);
+    }*/
 }

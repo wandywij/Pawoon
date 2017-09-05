@@ -49,7 +49,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void accept(@NonNull List<ToDoModel> toDoModels) throws Exception {
                 for(ToDoModel model : toDoModels) {
-                    Log.d("oke", model.title);
                 }
             }
         });
